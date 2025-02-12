@@ -1,0 +1,298 @@
+/* Fonts */
+
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+*,
+*::after,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "PT Sans", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* Header */
+header {
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    display: flex;
+    border-bottom: 1.5px solid rgb(174, 174, 174);
+    margin-bottom: 0.8rem;
+    /* background-color: red; */
+}
+
+
+header nav {
+    max-width: 93%;
+}
+
+header nav.navbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    margin: auto;
+    /* background-color: red; */
+}
+
+header nav .navbar-logo a img {
+    width: 7rem;
+    align-self: center
+}
+
+
+header nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1.3rem;
+
+}
+
+header nav ul li a {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    color: black;
+}
+
+/* Main (Images-gallery) */
+
+.projects-gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.projects-gallery .images {
+    columns: 5 340px;
+    max-width: 93%;
+    gap: 0.6rem;
+}
+
+/* Punya Detail */
+section.projects-gallery .images {
+    columns: 5 14%;
+    max-width: 70%;
+}
+
+/* section.projects-gallery .images li {
+    width: 14%;
+} */
+
+section.projects-gallery .images img {
+    width: 100%;
+    object-fit: contain;
+}
+
+
+.projects-gallery .images .card-img {
+    list-style: none;
+    margin-bottom: 0.3rem;
+}
+
+.projects-gallery .images img {
+    width: 100%;
+}
+
+.projects-gallery .images .card-img .card-info {
+    opacity: 0;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    border-radius: 0 0 10px 10px;
+}
+
+.projects-gallery .images .card-img:hover .card-info {
+    opacity: 1;
+    visibility: visible;
+}
+
+.projects-gallery .images .card-img .card-info h4 {
+    font-size: 22px;
+    line-height: 1px;
+    font-weight: 700;
+    margin-bottom: 22px;
+    padding-bottom: 0;
+}
+
+.projects-gallery .images .card-img .card-info h6 {
+    font-size: 18px;
+    line-height: 1px;
+    font-weight: 300;
+    margin-bottom: 14px;
+    padding-bottom: 0;
+}
+
+/* Pastikan posisi .card-img sebagai relative */
+.projects-gallery .images .card-img {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* .projects-gallery .images .card-img:hover {
+    transform: scale(1.02);
+    transition: transform 0.4s ease-in-out;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+} */
+
+/* Menyesuaikan ukuran gambar */
+.projects-gallery .images .card-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+
+
+
+
+/* Halaman Detail */
+
+.project {
+    max-width: 93%;
+    display: flex;
+    gap: 1.2rem;
+    margin: auto;
+}
+
+
+/* Title and Desc */
+
+section.project-detail {
+    width: 30%;
+    /* height: 100px; */
+    /* background-color: red; */
+}
+
+
+.title {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+}
+
+.description {
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+.description p {
+    line-height: 1.3rem;
+}
+
+
+/* section.project-detail table{
+    width: 80%;
+} */
+
+/* table, tr, td {
+    border: 1px solid;
+} */
+
+
+
+
+
+table tr td:nth-child(1) {
+    width: 6rem;
+    vertical-align: baseline;
+}
+
+table tr td:nth-child(2) {
+    width: 6rem;
+    vertical-align: bottom;
+}
+
+
+section.project-detail table td {
+    text-align: left;
+}
+
+
+/* Project Gallery */
+
+.project-gallery {
+    width: 100%;
+    /* background-color: royalblue; */
+
+}
+
+.project-images {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    column-gap: 0.2rem;
+    row-gap: 0.2rem;
+
+}
+
+li.project-img {
+    list-style: none;
+}
+
+li.project-img img {
+    width: 16rem;
+    height: 10rem;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+li.project-img .image-info{
+    opacity: 0;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    position: absolute;
+    height: 10rem;
+    width: 16rem;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+li.project-img:hover .image-info {
+    opacity: 1;
+    visibility: visible;
+}
+
+li.project-img .image-info h4 {
+    font-size: 22px;
+    line-height: 1px;
+    font-weight: 700;
+    margin-bottom: 22px;
+    padding-bottom: 0;
+}
