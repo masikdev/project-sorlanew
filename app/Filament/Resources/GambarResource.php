@@ -28,7 +28,7 @@ class GambarResource extends Resource
                         Forms\Components\Select::make('id_project')
                             ->label('Project')
                             ->placeholder('Project')
-                            ->relationship('project', 'project_name')
+                            ->relationship('project', 'project_name_en')
                             ->required(),
                         Forms\Components\TextInput::make('image_name')
                             ->label('Image Name')
@@ -47,7 +47,7 @@ class GambarResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('project.project_name')
+                Tables\Columns\TextColumn::make('project.project_name_en')
                     ->numeric()
                     ->searchable()
                     ->sortable(),

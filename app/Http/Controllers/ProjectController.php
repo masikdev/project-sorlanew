@@ -5,16 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Gambar;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        // Set bahasa default jika session belum ada
+        if (!session()->has('app_locale')) {
+            session(['app_locale' => 'en']);
+        }
+        // Mendapatkan bahasa dari session atau default 'en'
+        $language = session('app_locale', 'en');
+        App::setLocale($language);
+
+        // Mendapatkan proyek sesuai bahasa yang dipilih
         $projects = Project::all();
-        return view('index',compact('projects'));
+        return view('index', compact('projects'));
     }
 
     /**
@@ -36,11 +47,28 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id_project)
+    public function show($id_project, Request $request)
     {
+
+        // Set bahasa default jika session belum ada
+        if (!session()->has('app_locale')) {
+            session(['app_locale' => 'en']);
+        }
+        // Mendapatkan bahasa dari session atau default 'en'
+        $language = session('app_locale', 'en');
+        App::setLocale($language);
+
+        // Ambil proyek berdasarkan id
         $project = Project::find($id_project);
-        $gambarProject = Gambar::where('id_project',$id_project)->get();
-        return view('detail',compact('project','gambarProject'));
+        $gambarProject = Gambar::where('id_project', $id_project)->get();
+        return view('detail', compact('project', 'gambarProject'));
+    }
+
+    // Fungsi untuk mengubah bahasa
+    public function changeLanguage($language)
+    {
+        session(['app_locale' => $language]);
+        return redirect()->back();  // Kembali ke halaman sebelumnya
     }
 
     /**

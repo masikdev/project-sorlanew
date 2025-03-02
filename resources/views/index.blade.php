@@ -12,60 +12,141 @@
 
     <!-- ANIMATED ON SCROLL -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .language-selector {
+            position: relative;
+            display: inline-block;
+        }
 
+        .language-selector button {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 5px;
+        }
+
+        .language-selector button img {
+            width: 20px;
+            height: 15px;
+            margin-right: 5px;
+        }
+
+        .language-options {
+            display: none;
+            position: absolute;
+            background: white;
+            list-style: none;
+            padding: 5px;
+            margin: 0;
+            border: 1px solid #ddd;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            width: 100px;
+            right: 0;
+            z-index: 10;
+        }
+
+        .language-options li {
+            padding: 5px;
+        }
+
+        .language-options li a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+        }
+
+        .language-options li a img {
+            width: 20px;
+            height: 15px;
+            margin-right: 5px;
+        }
+
+        .language-selector:hover .language-options {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
 
     <header>
         <nav class="navbar">
-            <div class="navbar-logo">
-                <a href="/">
-                    <img src="{{ url('assets/logo/sorla_logo_black.png') }}" alt="">
-                </a>
+
+
+
+
+
+            <div class="left-navbar">
+                <div class="navbar-logo">
+                    <a href="/">
+                        <img src="{{ url('assets/logo/sorla_logo_black.png') }}" alt="">
+                    </a>
+                </div>
+                <div class="main-navbar">
+                    <ul>
+                        <li><a href="/">All</a></li>
+                        <li><a href="#">Architecture</a></li>
+                        <li><a href="#">Interior</a></li>
+                        <li><a href="#">Foundation Projects</a></li>
+                        <li><a href="#">Building Performance</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="main-navbar">
-                <ul>
-                    <li><a href="/">All</a></li>
-                    <li><a href="#">Architecture</a></li>
-                    <li><a href="#">Interior</a></li>
-                    <li><a href="#">Foundation Projects</a></li>
-                    <li><a href="#">Building Performance</a></li>
-                </ul>
+            <div class="right-navbar">
+                <div class="language-selector">
+                    <button id="selected-language">
+                        <img src="assets/flags/en.png" alt="EN Flag">
+                        EN
+                    </button>
+                    <ul class="language-options">
+                        <li><a href="#" data-lang="en" onclick="changeLanguage('en')">
+                                <img src="{{ url('assets/flags/en.png') }}" alt=""> EN</a></li>
+                        <li><a href="#" data-lang="it" onclick="changeLanguage('it')">
+                                <img src="{{ url('assets/flags/it.png') }}" alt=""> IT</a></li>
+                        <li><a href="#" data-lang="id" onclick="changeLanguage('id')">
+                                <img src="{{ url('assets/flags/id.png') }}" alt=""> ID</a></li>
+                    </ul>
+                </div>
+
             </div>
+
         </nav>
     </header>
 
     <main class="projects-gallery">
         <ul class="images">
             @foreach ($projects as $item)
-                <li class="card-img" data-aos="fade-up" data-aos-delay="600">
-                    <a href="{{ route('project.show', $item->id_project) }}">
-                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="project images">
-                        <div class="card-info">
-                            <h4>{{ $item->project_name }}</h4>
-                            <h6>{{ $item->category }}</h6>
-                        </div>
-                    </a>
-                </li>
+            <li class="card-img" data-aos="fade-up" data-aos-delay="600">
+                <a href="{{ route('project.show', $item->id_project) }}">
+                    <img src="{{ asset('storage/' . $item->gambar) }}" alt="project images">
+                    <div class="card-info">
+                        <h4>{{ $item->project_name }}</h4>
+                        <h6>{{ $item->category }}</h6>
+                    </div>
+                </a>
+            </li>
             @endforeach
         </ul>
         {{-- <ul class="images">
             <li class="card-img"><img src="{{url('images-sample/1.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/2.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/3.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/4.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/5.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/6.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/7.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/8.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/9.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/10.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/11.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/12.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/13.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/14.jpg')}}" alt=""></li>
-            <li class="card-img"><img src="{{url('images-sample/15.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/2.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/3.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/4.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/5.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/6.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/7.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/8.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/9.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/10.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/11.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/12.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/13.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/14.jpg')}}" alt=""></li>
+        <li class="card-img"><img src="{{url('images-sample/15.jpg')}}" alt=""></li>
         </ul> --}}
     </main>
 
@@ -73,6 +154,47 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
+    </script>
+    <!-- dropdown -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // AOS Initialization
+            AOS.init();
+
+            // Language Selector Logic
+            const languageButton = document.getElementById("selected-language");
+            const languageOptions = document.querySelector(".language-options");
+
+            // Change language when clicking an option
+            languageOptions.addEventListener("click", function(event) {
+                if (event.target.tagName === "A") {
+                    event.preventDefault();
+                    const selectedLang = event.target.getAttribute("data-lang");
+                    changeLanguage(selectedLang);
+                }
+            });
+
+            // Set active language button based on cookie
+            const appLocale = document.cookie.split("; ").find(row => row.startsWith("app_locale="));
+            if (appLocale) {
+                const currentLang = appLocale.split("=")[1];
+                languageButton.innerHTML = `<img src="{{ url('assets/flags/') }}/${currentLang}.png" alt="Language Flag"> ${currentLang.toUpperCase()}`;
+            }
+        });
+
+        function changeLanguage(lang) {
+            fetch("{{ route('change.language', '') }}/" + lang, {
+                method: "GET",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+            }).then(response => {
+                if (response.ok) {
+                    document.cookie = "app_locale=" + lang + "; path=/";
+                    location.reload();
+                }
+            }).catch(error => console.error("Error changing language:", error));
+        }
     </script>
 </body>
 

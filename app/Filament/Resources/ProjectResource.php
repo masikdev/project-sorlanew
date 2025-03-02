@@ -31,23 +31,51 @@ class ProjectResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('project_name')
+                TextInput::make('project_name_en')
                     ->label('Project Name')
                     ->placeholder('Project Name')
                     ->required()
                     ->autofocus(),
-                Textarea::make('description')
+                TextInput::make('project_name_it')
+                    ->label('Nome del progetto')
+                    ->placeholder('Nome del progetto')
+                    ->required()
+                    ->autofocus(),
+                TextInput::make('project_name_id')
+                    ->label('Nama Proyek')
+                    ->placeholder('Nama Proyek')
+                    ->required()
+                    ->autofocus(),
+
+                Textarea::make('description_en')
                     ->label('Project Description')
                     ->placeholder('Project Description')
                     ->required(),
-                TextInput::make('location')
+                Textarea::make('description_it')
+                    ->label('Descrizione del progetto')
+                    ->placeholder('Descrizione del progetto')
+                    ->required(),
+                Textarea::make('description_id')
+                    ->label('Deskripsi Proyek')
+                    ->placeholder('Deskripsi Proyek')
+                    ->required(),
+
+                TextInput::make('location_en')
                     ->label('Location')
                     ->placeholder('Location')
+                    ->required(),
+                TextInput::make('location_it')
+                    ->label('Posizione')
+                    ->placeholder('Posizione')
+                    ->required(),
+                TextInput::make('location_id')
+                    ->label('Lokasi')
+                    ->placeholder('Lokasi')
                     ->required(),
                 DatePicker::make('year')
                     ->label('Year')
                     ->required(),
-                Select::make('category')
+                Select::make('category_en')
                     ->label('Category')
                     ->placeholder('Category')
                     ->options([
@@ -57,19 +85,64 @@ class ProjectResource extends Resource
                         'building performance' => 'Building Performance',
                     ])
                     ->required(),
-                TextInput::make('size')
+                Select::make('category_it')
+                    ->label('Categoria')
+                    ->placeholder('Categoria')
+                    ->options([
+                        'architettura' => 'Architettura',
+                        'interna' => 'Interna',
+                        'progetti di fondazione' => 'Progetti Di Fondazione',
+                        "prestazioni dell\'edificio" => "Prestazioni Dell\'edificio",
+                    ])
+                    ->required(),
+                Select::make('category_id')
+                    ->label('Kategori')
+                    ->placeholder('Kategori')
+                    ->options([
+                        'arsitektur' => 'Arsitektur',
+                        'interior' => 'Interior',
+                        'proyek pondasi' => 'Proyek Pondasi',
+                        'kinerja bangunan' => 'Kinerja Bangunan',
+                    ])
+                    ->required(),
+                TextInput::make('size_en')
                     ->label('Size')
                     ->placeholder('Size')
                     ->required(),
-                Select::make('status')
+                TextInput::make('size_it')
+                    ->label('Misurare')
+                    ->placeholder('Misurare')
+                    ->required(),
+                TextInput::make('size_id')
+                    ->label('Ukuran')
+                    ->placeholder('Ukuran')
+                    ->required(),
+                TextInput::make('status_en')
                     ->label('Status')
                     ->placeholder('Status')
-                    ->options([
-                        'under construction' => 'Under Construction',
-                        'concept' => 'Concept',
-                        'done' => 'Done',
-                    ])
                     ->required(),
+                TextInput::make('status_it')
+                    ->label('Stato')
+                    ->placeholder('Stato')
+                    ->required(),
+                TextInput::make('status_id')
+                    ->label('Status')
+                    ->placeholder('Status')
+                    ->required(),
+
+
+                // Select::make('status')
+                //     ->label('Status')
+                //     ->placeholder('Status')
+                //     ->options([
+                //         'under construction' => 'Under Construction',
+                //         'concept' => 'Concept',
+                //         'done' => 'Done',
+                //     ])
+                //     ->required(),
+
+
+
                 TextInput::make('client')
                     ->label('Client')
                     ->placeholder('Client')
@@ -110,6 +183,12 @@ class ProjectResource extends Resource
                     ->label('Status')
                     ->searchable()
                     ->sortable(),
+
+
+
+
+
+
                 TextColumn::make('year')
                     ->label('Year')
                     ->sortable(),

@@ -13,15 +13,33 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->unsignedBigInteger('id_project')->autoIncrement();
-            $table->string('project_name');
-            $table->longText('description');
-            $table->string('location');
+            // Project Name with multi-language
+            $table->string('project_name_en');
+            $table->string('project_name_it');
+            $table->string('project_name_id');
+            // Description with multi-language
+            $table->longText('description_en');
+            $table->longText('description_it');
+            $table->longText('description_id');
+            // Location name with multi-language
+            $table->string('location_en');
+            $table->string('location_it');
+            $table->string('location_id');
             $table->date('year');
-            $table->enum('category',['architecture', 'interior', 'foundation projects', 'building performance']);
-            $table->string('size');
-            $table->string('status');
-            $table->string('client');
-            $table->string('gambar');
+            // Category with multi-language
+            $table->enum('category_en', ['architecture', 'interior', 'foundation projects', 'building performance']);
+            $table->enum('category_it', ['architettura', 'interna', 'progetti di fondazione', "prestazioni dell\'edificio"]);
+            $table->enum('category_id', ['arsitektur', 'interior', 'proyek pondasi', 'kinerja bangunan']);
+            // Size with multi-language
+            $table->string('size_en');
+            $table->string('size_it');
+            $table->string('size_id');
+            // Status with multi-language
+            $table->string('status_en');
+            $table->string('status_it');
+            $table->string('status_id');
+            $table->string('client')->nullable();
+            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }
