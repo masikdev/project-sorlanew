@@ -86,10 +86,12 @@
                 <div class="main-navbar">
                     <ul>
                         <li><a href="/">All</a></li>
-                        <li><a href="#">Architecture</a></li>
-                        <li><a href="#">Interior</a></li>
-                        <li><a href="#">Foundation Projects</a></li>
-                        <li><a href="#">Building Performance</a></li>
+                        <li><a href="#">Hospitality</a></li>
+                        <li><a href="#">Residential</a></li>
+                        <li><a href="#">Interior Design</a></li>
+                        <li><a href="#">Cultural</a></li>
+                        <li><a href="#">Commercial</a></li>
+                        <li><a href="#">Recreational</a></li>
                     </ul>
                 </div>
             </div>
