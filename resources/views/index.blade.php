@@ -89,12 +89,12 @@
                 <div class="main-navbar">
                     <ul>
                         <li><a href="/">All</a></li>
-                        <li><a href="#">Hospitality</a></li>
-                        <li><a href="#">Residential</a></li>
-                        <li><a href="#">Interior Design</a></li>
-                        <li><a href="#">Cultural</a></li>
-                        <li><a href="#">Commercial</a></li>
-                        <li><a href="#">Recreational</a></li>
+                        <li><a href="{{route('project.hospitality')}}">Hospitality</a></li>
+                        <li><a href="{{route('project.residential')}}">Residential</a></li>
+                        <li><a href="{{route('project.commercial')}}">Commercial</a></li>
+                        <li><a href="{{route('project.interior')}}">Interior Design</a></li>
+                        <li><a href="{{route('project.cultural')}}">Cultural</a></li>
+                        <li><a href="{{route('project.recreational')}}">Recreational</a></li>
                     </ul>
                 </div>
             </div>

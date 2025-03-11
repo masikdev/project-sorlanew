@@ -105,7 +105,7 @@ class ProjectResource extends Resource
                             ->options([
                                 'hospitality' => 'Hospitality',
                                 'residential' => 'Residential',
-                                'interior design' => 'Interior Design',
+                                'interior' => 'Interior Design',
                                 'cultural' => 'Cultural',
                                 'commercial' => 'Commercial',
                                 'recreational' => 'Recreational',
