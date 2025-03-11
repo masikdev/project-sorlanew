@@ -32,6 +32,7 @@ class Project extends Model
         'status_en',
         'status_it',
         'status_id',
+        'collaborator',
         'client',
         'gambar'
     ];
