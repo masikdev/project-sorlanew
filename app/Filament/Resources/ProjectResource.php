@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use App\Helpers\TranslationHelper;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
@@ -26,7 +27,11 @@ class ProjectResource extends Resource
 {
     protected static ?string $model = Project::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-inbox';
+    protected static ?string $label = 'Projects';
+    protected static ?string $navigationLabel = 'Project';
+
+
 
     public static function form(Form $form): Form
     {
@@ -98,10 +103,6 @@ class ProjectResource extends Resource
                             ->label('Category')
                             ->placeholder('Category')
                             ->options([
-                                // 'architecture' => 'Architecture',
-                                // 'interior' => 'Interior',
-                                // 'foundation projects' => 'Foundation Projects',
-                                // 'building performance' => 'Building Performance',
                                 'hospitality' => 'Hospitality',
                                 'residential' => 'Residential',
                                 'interior design' => 'Interior Design',
@@ -138,15 +139,28 @@ class ProjectResource extends Resource
                                 $set('size_it', TranslationHelper::translateText($state, 'it'));
                                 $set('size_id', TranslationHelper::translateText($state, 'id'));
                             }),
-                        TextInput::make('status_en')
+                        Hidden::make('size_it')
+                            ->label('Dimensione'),
+                        Hidden::make('size_id')
+                            ->label('Ukuran'),
+                        Select::make('status_en')
                             ->label('Status')
                             ->placeholder('Status')
                             ->required()
+                            ->options([
+                                'completed' => 'Completed',
+                                'on progress' => 'On Progress',
+                                'planned' => 'Planned',
+                            ])
                             ->live(debounce: 1000)
                             ->afterStateUpdated(function ($state, callable $set) {
                                 $set('status_it', TranslationHelper::translateText($state, 'it'));
                                 $set('status_id', TranslationHelper::translateText($state, 'id'));
                             }),
+                        Hidden::make('status_it')
+                            ->label('Stato'),
+                        Hidden::make('status_id')
+                            ->label('Status'),
                     ])->columns(3),
 
                 // Forms\Components\Section::make('Project Status')
@@ -161,9 +175,9 @@ class ProjectResource extends Resource
                 Forms\Components\Section::make('Project Year')
                     ->schema([
 
-                        TextInput::make('collaborattor')
-                            ->label('Collaborattor')
-                            ->placeholder('Collaborattor'),
+                        TextInput::make('collaborator')
+                            ->label('Collaborator')
+                            ->placeholder('Collaborator'),
                         TextInput::make('client')
                             ->label('Client')
                             ->placeholder('Client')
@@ -185,36 +199,32 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('project_name')
+                TextColumn::make('project_name_en')
                     ->label('Project Name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('location')
+                TextColumn::make('location_en')
                     ->label('Location')
                     ->searchable()
                     ->sortable(),
-                BadgeColumn::make('category')
+                BadgeColumn::make('category_en')
                     ->label('Category')
                     ->colors([
-                        'primary' => 'architecture',
-                        'secondary' => 'interior',
-                        'success' => 'foundation projects',
-                        'danger' => 'building performance',
+                        'hospitality' => 'blue',
+                        'residential' => 'green',
+                        'interior design' => 'yellow',
+                        'cultural' => 'purple',
+                        'commercial' => 'red',
+                        'recreational' => 'indigo',
                     ]),
                 TextColumn::make('client')
                     ->label('Client')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('status')
+                TextColumn::make('status_en')
                     ->label('Status')
                     ->searchable()
                     ->sortable(),
-
-
-
-
-
-
                 TextColumn::make('year')
                     ->label('Year')
                     ->sortable(),
