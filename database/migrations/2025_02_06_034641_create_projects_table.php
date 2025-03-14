@@ -15,29 +15,31 @@ return new class extends Migration
             $table->unsignedBigInteger('id_project')->autoIncrement();
             // Project Name with multi-language
             $table->string('project_name_en');
-            $table->string('project_name_it');
-            $table->string('project_name_id');
+            $table->string('project_name_it')->nullable();
+            $table->string('project_name_id')->nullable();
             // Description with multi-language
             $table->longText('description_en');
-            $table->longText('description_it');
-            $table->longText('description_id');
+            $table->longText('description_it')->nullable();
+            $table->longText('description_id')->nullable();
             // Location name with multi-language
             $table->string('location_en');
-            $table->string('location_it');
-            $table->string('location_id');
+            $table->string('location_it')->nullable();
+            $table->string('location_id')->nullable();
             $table->date('year');
             // Category with multi-language
-            $table->enum('category_en', ['architecture', 'interior', 'foundation projects', 'building performance']);
-            $table->enum('category_it', ['architettura', 'interna', 'progetti di fondazione', "prestazioni dell\'edificio"]);
-            $table->enum('category_id', ['arsitektur', 'interior', 'proyek pondasi', 'kinerja bangunan']);
+            $table->string('category_en');
+            $table->string('category_it')->nullable();
+            $table->string('category_id')->nullable();
             // Size with multi-language
             $table->string('size_en');
-            $table->string('size_it');
-            $table->string('size_id');
+            $table->string('size_it')->nullable();
+            $table->string('size_id')->nullable();
             // Status with multi-language
             $table->string('status_en');
-            $table->string('status_it');
-            $table->string('status_id');
+            $table->string('status_it')->nullable();
+            $table->string('status_id')->nullable();
+
+            $table->string('collaborator')->nullable();
             $table->string('client')->nullable();
             $table->string('gambar')->nullable();
             $table->timestamps();
