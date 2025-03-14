@@ -8,5 +8,6 @@ return [
     'size' => 'Misurare',
     'status' => 'Stato',
     'project date' => 'Data del progetto',
-    'description' => 'Descrizione del progetto'
+    'description' => 'Descrizione del progetto',
+    'collaborator' => 'Collaboratore',
 ];

@@ -94,4 +94,42 @@ class ProjectController extends Controller
     {
         //
     }
+
+    // Fungsi untuk menampilkan proyek berdasarkan kategori
+    public function hospitality()
+    {
+        $projects = Project::where('category_en', 'hospitality')->get();
+        return view('index', compact('projects'));
+    }
+
+    public function residential()
+    {
+        $projects = Project::where('category_en', 'residential')->get();
+        return view('index', compact('projects'));
+    }
+
+    public function interior()
+    {
+        $projects = Project::where('category_en', 'interior')->get();
+        return view('index', compact('projects'));
+    }
+
+    public function commercial()
+    {
+        $projects = Project::where('category_en', 'commercial')->get();
+        return view('index', compact('projects'));
+    }
+
+    public function cultural()
+    {
+        $projects = Project::where('category_en', 'cultural')->get();
+        return view('index', compact('projects'));
+    }
+
+    public function recreational()
+    {
+        $projects = Project::where('category_en', 'recreational')->get();
+        return view('index', compact('projects'));
+    }
+
 }

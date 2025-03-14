@@ -8,6 +8,8 @@ use App\Models\Project;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use App\Helpers\TranslationHelper;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
@@ -25,133 +27,171 @@ class ProjectResource extends Resource
 {
     protected static ?string $model = Project::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-inbox';
+    protected static ?string $label = 'Projects';
+    protected static ?string $navigationLabel = 'Project';
+
+
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('project_name_en')
-                    ->label('Project Name')
-                    ->placeholder('Project Name')
-                    ->required()
-                    ->autofocus(),
-                TextInput::make('project_name_it')
-                    ->label('Nome del progetto')
-                    ->placeholder('Nome del progetto')
-                    ->required()
-                    ->autofocus(),
-                TextInput::make('project_name_id')
-                    ->label('Nama Proyek')
-                    ->placeholder('Nama Proyek')
-                    ->required()
-                    ->autofocus(),
+                Forms\Components\Section::make('Project Names')
+                    ->schema([
+                        TextInput::make('project_name_en')
+                            ->label('Project Name')
+                            ->placeholder('Project Name')
+                            ->required()
+                            ->autofocus()
+                            ->live(debounce: 1000)
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('project_name_it', TranslationHelper::translateText($state, 'it'));
+                                $set('project_name_id', TranslationHelper::translateText($state, 'id'));
+                            }),
 
-                Textarea::make('description_en')
-                    ->label('Project Description')
-                    ->placeholder('Project Description')
-                    ->required(),
-                Textarea::make('description_it')
-                    ->label('Descrizione del progetto')
-                    ->placeholder('Descrizione del progetto')
-                    ->required(),
-                Textarea::make('description_id')
-                    ->label('Deskripsi Proyek')
-                    ->placeholder('Deskripsi Proyek')
-                    ->required(),
+                        TextInput::make('project_name_it')
+                            ->label('Nome del progetto')
+                            ->placeholder('Nome del progetto'),
 
-                TextInput::make('location_en')
-                    ->label('Location')
-                    ->placeholder('Location')
-                    ->required(),
-                TextInput::make('location_it')
-                    ->label('Posizione')
-                    ->placeholder('Posizione')
-                    ->required(),
-                TextInput::make('location_id')
-                    ->label('Lokasi')
-                    ->placeholder('Lokasi')
-                    ->required(),
-                DatePicker::make('year')
-                    ->label('Year')
-                    ->required(),
-                Select::make('category_en')
-                    ->label('Category')
-                    ->placeholder('Category')
-                    ->options([
-                        'architecture' => 'Architecture',
-                        'interior' => 'Interior',
-                        'foundation projects' => 'Foundation Projects',
-                        'building performance' => 'Building Performance',
-                    ])
-                    ->required(),
-                Select::make('category_it')
-                    ->label('Categoria')
-                    ->placeholder('Categoria')
-                    ->options([
-                        'architettura' => 'Architettura',
-                        'interna' => 'Interna',
-                        'progetti di fondazione' => 'Progetti Di Fondazione',
-                        "prestazioni dell\'edificio" => "Prestazioni Dell\'edificio",
-                    ])
-                    ->required(),
-                Select::make('category_id')
-                    ->label('Kategori')
-                    ->placeholder('Kategori')
-                    ->options([
-                        'arsitektur' => 'Arsitektur',
-                        'interior' => 'Interior',
-                        'proyek pondasi' => 'Proyek Pondasi',
-                        'kinerja bangunan' => 'Kinerja Bangunan',
-                    ])
-                    ->required(),
-                TextInput::make('size_en')
-                    ->label('Size')
-                    ->placeholder('Size')
-                    ->required(),
-                TextInput::make('size_it')
-                    ->label('Misurare')
-                    ->placeholder('Misurare')
-                    ->required(),
-                TextInput::make('size_id')
-                    ->label('Ukuran')
-                    ->placeholder('Ukuran')
-                    ->required(),
-                TextInput::make('status_en')
-                    ->label('Status')
-                    ->placeholder('Status')
-                    ->required(),
-                TextInput::make('status_it')
-                    ->label('Stato')
-                    ->placeholder('Stato')
-                    ->required(),
-                TextInput::make('status_id')
-                    ->label('Status')
-                    ->placeholder('Status')
-                    ->required(),
+                        TextInput::make('project_name_id')
+                            ->label('Nama Proyek')
+                            ->placeholder('Nama Proyek'),
+                    ])->columns(3),
 
+                Forms\Components\Section::make('Project Descriptions')
+                    ->schema([
+                        Textarea::make('description_en')
+                            ->label('Project Description')
+                            ->placeholder('Project Description')
+                            ->required()
+                            ->live(debounce: 1000)
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('description_it', TranslationHelper::translateText($state, 'it'));
+                                $set('description_id', TranslationHelper::translateText($state, 'id'));
+                            }),
+                        Textarea::make('description_it')
+                            ->label('Descrizione del progetto')
+                            ->placeholder('Descrizione del progetto'),
+                        Textarea::make('description_id')
+                            ->label('Deskripsi Proyek')
+                            ->placeholder('Deskripsi Proyek'),
+                    ]),
 
-                // Select::make('status')
-                //     ->label('Status')
-                //     ->placeholder('Status')
-                //     ->options([
-                //         'under construction' => 'Under Construction',
-                //         'concept' => 'Concept',
-                //         'done' => 'Done',
-                //     ])
-                //     ->required(),
+                Forms\Components\Section::make('Project Locations')
+                    ->schema([
+                        TextInput::make('location_en')
+                            ->label('Location')
+                            ->placeholder('Location')
+                            ->required()
+                            ->live(debounce: 1000)
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('location_it', TranslationHelper::translateText($state, 'it'));
+                                $set('location_id', TranslationHelper::translateText($state, 'id'));
+                            }),
+                        TextInput::make('location_it')
+                            ->label('Posizione')
+                            ->placeholder('Posizione'),
+                        TextInput::make('location_id')
+                            ->label('Lokasi')
+                            ->placeholder('Lokasi'),
+                    ])->columns(3),
 
+                Forms\Components\Section::make('Project Categories')
+                    ->schema([
+                        Select::make('category_en')
+                            ->label('Category')
+                            ->placeholder('Category')
+                            ->options([
+                                'hospitality' => 'Hospitality',
+                                'residential' => 'Residential',
+                                'interior' => 'Interior Design',
+                                'cultural' => 'Cultural',
+                                'commercial' => 'Commercial',
+                                'recreational' => 'Recreational',
+                            ])
+                            ->required()
+                            ->live(debounce: 1000)
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('category_it', TranslationHelper::translateText($state, 'it'));
+                                $set('category_id', TranslationHelper::translateText($state, 'id'));
+                            }),
+                        TextInput::make('category_it')
+                            ->label('Categoria')
+                            ->placeholder('Categoria'),
+                        TextInput::make('category_id')
+                            ->label('Kategori')
+                            ->placeholder('Kategori'),
+                    ])->columns(3),
 
+                Forms\Components\Section::make('Project Information')
+                    ->schema([
+                        DatePicker::make('year')
+                            ->label('Year')
+                            ->native(false),
+                        TextInput::make('size_en')
+                            ->label('Size')
+                            ->placeholder('Size')
+                            ->required()
+                            ->prefix('m2')
+                            ->live(debounce: 1000)
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('size_it', TranslationHelper::translateText($state, 'it'));
+                                $set('size_id', TranslationHelper::translateText($state, 'id'));
+                            }),
+                        Hidden::make('size_it')
+                            ->label('Dimensione'),
+                        Hidden::make('size_id')
+                            ->label('Ukuran'),
+                        Select::make('status_en')
+                            ->label('Status')
+                            ->placeholder('Status')
+                            ->required()
+                            ->options([
+                                'completed' => 'Completed',
+                                'on progress' => 'On Progress',
+                                'planned' => 'Planned',
+                            ])
+                            ->live(debounce: 1000)
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('status_it', TranslationHelper::translateText($state, 'it'));
+                                $set('status_id', TranslationHelper::translateText($state, 'id'));
+                            }),
+                        Hidden::make('status_it')
+                            ->label('Stato'),
+                        Hidden::make('status_id')
+                            ->label('Status'),
+                    ])->columns(3),
 
-                TextInput::make('client')
-                    ->label('Client')
-                    ->placeholder('Client')
-                    ->required(),
-                FileUpload::make('gambar')
-                    ->label('Image')
-                    ->visibility('public')
-                    ->image()
-                    ->required(),
+                // Forms\Components\Section::make('Project Status')
+                //     ->schema([
+
+                //         Hidden::make('status_it')
+                //             ->label('Stato'),
+                //         Hidden::make('status_id')
+                //             ->label('Status'),
+                //     ])->columns(3),
+
+                Forms\Components\Section::make('Project Year')
+                    ->schema([
+
+                        TextInput::make('collaborator')
+                            ->label('Collaborator')
+                            ->placeholder('Collaborator'),
+                        TextInput::make('client')
+                            ->label('Client')
+                            ->placeholder('Client')
+                            ->required(),
+                    ])->columns(3),
+
+                Forms\Components\Section::make('Project Image')
+                    ->schema([
+                        FileUpload::make('gambar')
+                            ->label('Image')
+                            ->visibility('public')
+                            ->image()
+                            ->required(),
+                    ]),
             ]);
     }
 
@@ -159,36 +199,32 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('project_name')
+                TextColumn::make('project_name_en')
                     ->label('Project Name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('location')
+                TextColumn::make('location_en')
                     ->label('Location')
                     ->searchable()
                     ->sortable(),
-                BadgeColumn::make('category')
+                BadgeColumn::make('category_en')
                     ->label('Category')
                     ->colors([
-                        'primary' => 'architecture',
-                        'secondary' => 'interior',
-                        'success' => 'foundation projects',
-                        'danger' => 'building performance',
+                        'hospitality' => 'blue',
+                        'residential' => 'green',
+                        'interior design' => 'yellow',
+                        'cultural' => 'purple',
+                        'commercial' => 'red',
+                        'recreational' => 'indigo',
                     ]),
                 TextColumn::make('client')
                     ->label('Client')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('status')
+                TextColumn::make('status_en')
                     ->label('Status')
                     ->searchable()
                     ->sortable(),
-
-
-
-
-
-
                 TextColumn::make('year')
                     ->label('Year')
                     ->sortable(),

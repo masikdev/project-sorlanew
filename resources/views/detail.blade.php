@@ -112,9 +112,9 @@
                 </div>
 
                 <!-- <select name="language" id="language" onchange="location = this.value;">
-                    <option value="{{ route('change.language', 'en') }}" {{ session('app_locale') == 'en' ? 'selected' : '' }}> <img src="{{url('assets/flags/UK.png') }}" alt=""> EN</option>
-                    <option value="{{ route('change.language', 'it') }}" {{ session('app_locale') == 'it' ? 'selected' : '' }}> <img src="{{url('assets/flags/Italy.png') }}" alt=""> IT</option>
-                    <option value="{{ route('change.language', 'id') }}" {{ session('app_locale') == 'id' ? 'selected' : '' }}> <img src="{{url('assets/flags/Indonesian.png') }}" alt=""> ID</option>
+                    <option value="{{ route('change.language', 'en') }}" {{ session('app_locale') == 'en' ? 'selected' : '' }}> <img src="{{ url('assets/flags/UK.png') }}" alt=""> EN</option>
+                    <option value="{{ route('change.language', 'it') }}" {{ session('app_locale') == 'it' ? 'selected' : '' }}> <img src="{{ url('assets/flags/Italy.png') }}" alt=""> IT</option>
+                    <option value="{{ route('change.language', 'id') }}" {{ session('app_locale') == 'id' ? 'selected' : '' }}> <img src="{{ url('assets/flags/Indonesian.png') }}" alt=""> ID</option>
                 </select> -->
             </div>
 
@@ -131,25 +131,32 @@
                         <td>{{ $project->{'category_' . session('app_locale')} }}</td>
                     </tr>
                     <tr>
-                        <td>{{__('messages.location')}} :</td>
+                        <td>{{ __('messages.location') }} :</td>
                         <td>{{ $project->{'location_' . session('app_locale')} }}</td>
                     </tr>
                     <tr>
-                        <td>{{__('messages.size')}} :</td>
+                        <td>{{ __('messages.size') }} :</td>
                         <td>{{ $project->{'size_' . session('app_locale')} }}</td>
                     </tr>
                     <tr>
-                        <td>{{__('messages.status')}} :</td>
+                        <td>{{ __('messages.status') }} :</td>
                         <td>{{ $project->{'status_' . session('app_locale')} }}</td>
                     </tr>
+                    @if ($project->collaborator)
+                        <tr>
+                            <td>{{ __('messages.collaborator') }} :</td>
+                            <td>{{ $project->collaborator }}</td>
+                        </tr>
+                    @endif
+                    </tr>
                     <tr>
-                        <td>{{__('messages.project date')}} :</td>
+                        <td>{{ __('messages.project date') }} :</td>
                         <td>{{ \Carbon\Carbon::parse($project->year)->format('d F Y') }}</td>
                     </tr>
                 </table>
 
                 <div class="description">
-                    <h3 class="fw-bold">{{__('messages.description')}}</h3>
+                    <h3 class="fw-bold">{{ __('messages.description') }}</h3>
                     <p>{{ $project->{'description_' . session('app_locale')} }}</p>
                 </div>
 
@@ -160,16 +167,16 @@
             <ul class="project-images">
 
                 @foreach ($gambarProject as $gambar)
-                @foreach ($gambar['image_desc'] as $image)
-                <li class="project-img" data-aos="fade-up" data-aos-delay="600">
-                    <a href="{{ asset('storage/' . $image) }}" target="_blank">
-                        <img src="{{ asset('storage/' . $image) }}" alt="">
-                        <div class="image-info">
-                            <h4>{{ $gambar['image_name'] }}</h4>
-                        </div>
-                    </a>
-                </li>
-                @endforeach
+                    @foreach ($gambar['image_desc'] as $image)
+                        <li class="project-img" data-aos="fade-up" data-aos-delay="600">
+                            <a href="{{ asset('storage/' . $image) }}" target="_blank">
+                                <img src="{{ asset('storage/' . $image) }}" alt="">
+                                <div class="image-info">
+                                    <h4>{{ $gambar['image_name'] }}</h4>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
                 @endforeach
             </ul>
         </section>
@@ -204,7 +211,8 @@
             const appLocale = document.cookie.split("; ").find(row => row.startsWith("app_locale="));
             if (appLocale) {
                 const currentLang = appLocale.split("=")[1];
-                languageButton.innerHTML = `<img src="{{ url('assets/flags/') }}/${currentLang}.png" alt="Language Flag"> ${currentLang.toUpperCase()}`;
+                languageButton.innerHTML =
+                    `<img src="{{ url('assets/flags/') }}/${currentLang}.png" alt="Language Flag"> ${currentLang.toUpperCase()}`;
             }
         });
 
