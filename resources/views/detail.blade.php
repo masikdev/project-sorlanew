@@ -9,6 +9,9 @@
 
     <link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <!-- ANIMATED ON SCROLL -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
@@ -68,6 +71,9 @@
             display: block;
         }
     </style>
+
+
+
 </head>
 
 <body>
@@ -163,7 +169,7 @@
         </section>
 
 
-        <section class="project-gallery">
+        {{-- <section class="project-gallery">
             <ul class="project-images">
 
                 @foreach ($gambarProject as $gambar)
@@ -179,8 +185,101 @@
                     @endforeach
                 @endforeach
             </ul>
+        </section> --}}
+
+        <!-- Tambahkan Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center position-relative">
+                        <button class="btn btn-dark position-absolute start-0 top-50 translate-middle-y" id="prevImage"
+                            style="z-index: 10;">&#10094;</button>
+                        <img id="modalImage" src="" class="img-fluid" alt="Preview">
+                        <button class="btn btn-dark position-absolute end-0 top-50 translate-middle-y" id="nextImage"
+                            style="z-index: 10;">&#10095;</button>
+                        <h5 class="modal-title" id="imageModalLabel"></h5>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="project-gallery">
+            <ul class="project-images">
+                @foreach ($gambarProject as $gambar)
+                    @foreach ($gambar['image_desc'] as $image)
+                        <li class="project-img" data-aos="fade-up" data-aos-delay="600">
+                            <a href="#" class="open-modal" data-image="{{ asset('storage/' . $image) }}"
+                                data-name="{{ $gambar['image_name'] }}">
+                                <img src="{{ asset('storage/' . $image) }}" alt="">
+                                <div class="image-info">
+                                    <h4>{{ $gambar['image_name'] }}</h4>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+                @endforeach
+            </ul>
         </section>
+
+
+
     </main>
+
+    <!-- Tambahkan Bootstrap JS jika belum ada -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = new bootstrap.Modal(document.getElementById("imageModal"));
+            const modalImage = document.getElementById("modalImage");
+            const modalTitle = document.getElementById("imageModalLabel");
+            const prevButton = document.getElementById("prevImage");
+            const nextButton = document.getElementById("nextImage");
+    
+            let images = [];
+            let currentIndex = 0;
+    
+            document.querySelectorAll(".open-modal").forEach((item, index) => {
+                item.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    
+                    images = Array.from(document.querySelectorAll(".open-modal")).map(link => ({
+                        src: link.getAttribute("data-image"),
+                        name: link.getAttribute("data-name")
+                    }));
+    
+                    currentIndex = index;
+                    updateModalContent();
+    
+                    modal.show();
+                });
+            });
+    
+            function updateModalContent() {
+                modalImage.src = images[currentIndex].src;
+                modalTitle.textContent = images[currentIndex].name;
+            }
+    
+            prevButton.addEventListener("click", function () {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateModalContent();
+                }
+            });
+    
+            nextButton.addEventListener("click", function () {
+                if (currentIndex < images.length - 1) {
+                    currentIndex++;
+                    updateModalContent();
+                }
+            });
+        });
+    </script>
 
     {{-- AOS --}}
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -231,6 +330,9 @@
         }
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 
 </body>
 
