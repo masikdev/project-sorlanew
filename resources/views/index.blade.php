@@ -126,8 +126,8 @@
                 <a href="{{ route('project.show', $item->id_project) }}">
                     <img src="{{ asset('storage/' . $item->gambar) }}" alt="project images">
                     <div class="card-info">
-                        <h4>{{ $item->project_name }}</h4>
-                        <h6>{{ $item->category }}</h6>
+                        <h4>{{ $item->project_name_en }}</h4>
+                        <h6>{{ $item->category_en }}</h6>
                     </div>
                 </a>
             </li>

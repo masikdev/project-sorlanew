@@ -7,6 +7,7 @@ use Filament\Tables;
 use App\Models\Project;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use App\Helpers\TranslationHelper;
 use Filament\Forms\Components\Hidden;
@@ -103,12 +104,12 @@ class ProjectResource extends Resource
                             ->label('Category')
                             ->placeholder('Category')
                             ->options([
-                                'hospitality' => 'Hospitality',
-                                'residential' => 'Residential',
-                                'interior' => 'Interior Design',
-                                'cultural' => 'Cultural',
-                                'commercial' => 'Commercial',
-                                'recreational' => 'Recreational',
+                                'Hospitality' => 'Hospitality',
+                                'Residential' => 'Residential',
+                                'Interior Design' => 'Interior Design',
+                                'Cultural' => 'Cultural',
+                                'Commercial' => 'Commercial',
+                                'Recreational' => 'Recreational',
                             ])
                             ->required()
                             ->live(debounce: 1000)
@@ -128,7 +129,9 @@ class ProjectResource extends Resource
                     ->schema([
                         DatePicker::make('year')
                             ->label('Year')
-                            ->native(false),
+                            ->native(false)
+                            ->format('Y')
+                            ->displayFormat('Y'),
                         TextInput::make('size_en')
                             ->label('Size')
                             ->placeholder('Size')
@@ -143,14 +146,28 @@ class ProjectResource extends Resource
                             ->label('Dimensione'),
                         Hidden::make('size_id')
                             ->label('Ukuran'),
-                        Select::make('status_en')
+                        // Select::make('status_en')
+                        //     ->label('Status')
+                        //     ->placeholder('Status')
+                        //     ->required()
+                        //     ->options([
+                        //         'completed' => 'Completed',
+                        //         'on progress' => 'On Progress',
+                        //         'planned' => 'Planned',
+                        //     ])
+                        //     ->live(debounce: 1000)
+                        //     ->afterStateUpdated(function ($state, callable $set) {
+                        //         $set('status_it', TranslationHelper::translateText($state, 'it'));
+                        //         $set('status_id', TranslationHelper::translateText($state, 'id'));
+                        //     }),
+                        TextInput::make('status_en')
                             ->label('Status')
-                            ->placeholder('Status')
+                            ->placeholder('Isi status (misalnya: Completed, On Progress, Planned)')
                             ->required()
-                            ->options([
-                                'completed' => 'Completed',
-                                'on progress' => 'On Progress',
-                                'planned' => 'Planned',
+                            ->datalist([
+                                'Completed',
+                                'On Progress',
+                                'Planned',
                             ])
                             ->live(debounce: 1000)
                             ->afterStateUpdated(function ($state, callable $set) {
@@ -175,22 +192,29 @@ class ProjectResource extends Resource
                 Forms\Components\Section::make('Project Year')
                     ->schema([
 
-                        TextInput::make('collaborator')
-                            ->label('Collaborator')
-                            ->placeholder('Collaborator'),
+                        TextInput::make('designer')
+                            ->label('Designer')
+                            ->placeholder('Designer'),
                         TextInput::make('client')
                             ->label('Client')
-                            ->placeholder('Client')
-                            ->required(),
+                            ->placeholder('Client'),
                     ])->columns(3),
 
                 Forms\Components\Section::make('Project Image')
                     ->schema([
                         FileUpload::make('gambar')
                             ->label('Image')
+                            ->disk('public')
                             ->visibility('public')
-                            ->image()
-                            ->required(),
+                            ->directory('projects-thumbnail')
+                            ->getUploadedFileNameForStorageUsing(function ($file, $livewire) {
+                                $projectName = $livewire->data['project_name_en'] ?? 'project';
+                                $sluggedName = Str::slug($projectName);
+                                $extension = $file->getClientOriginalExtension();
+                        
+                                return $sluggedName . '-' . now()->timestamp . '.' . $extension;
+                            })
+                            ->image(),
                     ]),
             ]);
     }
@@ -199,6 +223,11 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('id_project')
+                    ->label('ID')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('project_name_en')
                     ->label('Project Name')
                     ->searchable()
@@ -210,21 +239,21 @@ class ProjectResource extends Resource
                 BadgeColumn::make('category_en')
                     ->label('Category')
                     ->colors([
-                        'hospitality' => 'blue',
-                        'residential' => 'green',
-                        'interior design' => 'yellow',
-                        'cultural' => 'purple',
-                        'commercial' => 'red',
-                        'recreational' => 'indigo',
+                        'Hospitality' => 'blue',
+                        'Residential' => 'green',
+                        'Interior Design' => 'yellow',
+                        'Cultural' => 'purple',
+                        'Commercial' => 'red',
+                        'Recreational' => 'indigo',
                     ]),
-                TextColumn::make('client')
-                    ->label('Client')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('status_en')
-                    ->label('Status')
-                    ->searchable()
-                    ->sortable(),
+                // TextColumn::make('client')
+                //     ->label('Client')
+                //     ->searchable()
+                //     ->sortable(),
+                // TextColumn::make('status_en')
+                //     ->label('Status')
+                //     ->searchable()
+                //     ->sortable(),
                 TextColumn::make('year')
                     ->label('Year')
                     ->sortable(),
@@ -243,6 +272,7 @@ class ProjectResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('location_en');
             $table->string('location_it')->nullable();
             $table->string('location_id')->nullable();
-            $table->date('year');
+            $table->year('year');
             // Category with multi-language
             $table->string('category_en');
             $table->string('category_it')->nullable();
@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('status_it')->nullable();
             $table->string('status_id')->nullable();
 
-            $table->string('collaborator')->nullable();
+            $table->string('designer')->nullable();
             $table->string('client')->nullable();
             $table->string('gambar')->nullable();
             $table->timestamps();

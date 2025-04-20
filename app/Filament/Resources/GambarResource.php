@@ -30,6 +30,7 @@ class GambarResource extends Resource
                         Forms\Components\Select::make('id_project')
                             ->label('Project')
                             ->placeholder('Project')
+                            ->searchable()
                             ->relationship('project', 'project_name_en')
                             ->required(),
                         Forms\Components\TextInput::make('image_name')
