@@ -91,12 +91,18 @@
                 <div class="main-navbar">
                     <ul>
                         <li><a href="/" class="{{ Request::is('/') ? 'active' : '' }}">All</a></li>
-                        <li><a href="{{ route('project.hospitality') }}" class="{{ Route::is('project.hospitality') ? 'active' : '' }}">Hospitality</a></li>
-                        <li><a href="{{ route('project.residential') }}" class="{{ Route::is('project.residential') ? 'active' : '' }}">Residential</a></li>
-                        <li><a href="{{ route('project.commercial') }}" class="{{ Route::is('project.commercial') ? 'active' : '' }}">Commercial</a></li>
-                        <li><a href="{{ route('project.interior') }}" class="{{ Route::is('project.interior') ? 'active' : '' }}">Interior Design</a></li>
-                        <li><a href="{{ route('project.cultural') }}" class="{{ Route::is('project.cultural') ? 'active' : '' }}">Cultural</a></li>
-                        <li><a href="{{ route('project.recreational') }}" class="{{ Route::is('project.recreational') ? 'active' : '' }}">Recreational</a></li>
+                        <li><a href="{{ route('project.hospitality') }}"
+                                class="{{ Route::is('project.hospitality') ? 'active' : '' }}">Hospitality</a></li>
+                        <li><a href="{{ route('project.residential') }}"
+                                class="{{ Route::is('project.residential') ? 'active' : '' }}">Residential</a></li>
+                        <li><a href="{{ route('project.commercial') }}"
+                                class="{{ Route::is('project.commercial') ? 'active' : '' }}">Commercial</a></li>
+                        <li><a href="{{ route('project.interior') }}"
+                                class="{{ Route::is('project.interior') ? 'active' : '' }}">Interior Design</a></li>
+                        <li><a href="{{ route('project.cultural') }}"
+                                class="{{ Route::is('project.cultural') ? 'active' : '' }}">Cultural</a></li>
+                        <li><a href="{{ route('project.recreational') }}"
+                                class="{{ Route::is('project.recreational') ? 'active' : '' }}">Recreational</a></li>
                     </ul>
                 </div>
             </div>
@@ -123,15 +129,17 @@
     <main class="projects-gallery">
         <ul class="images">
             @foreach ($projects as $item)
-            <li class="card-img" data-aos="fade-up" data-aos-delay="600">
-                <a href="{{ route('project.show', $item->id_project) }}">
-                    <img src="{{ asset('storage/' . $item->gambar) }}" alt="project images">
-                    <div class="card-info">
-                        <h4>{{ $item->project_name_en }}</h4>
-                        <h6>{{ $item->category_en }}</h6>
-                    </div>
-                </a>
-            </li>
+                <li class="card-img" data-aos="fade-up" data-aos-delay="600">
+                    <a href="{{ route('project.show', $item->id_project) }}">
+                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="project images">
+                        <div class="card-info">
+                            {{-- <h4>{{ $item->project_name_en }}</h4> --}}
+                            <h4>{{ $item->{'project_name_' . session('app_locale')} }}</h4>
+                            <h6>{{ $item->{'category_' . session('app_locale')} }}</h6>
+                            {{-- <h6>{{ $item->category_en }}</h6> --}}
+                        </div>
+                    </a>
+                </li>
             @endforeach
         </ul>
     </main>
@@ -164,7 +172,8 @@
             const appLocale = document.cookie.split("; ").find(row => row.startsWith("app_locale="));
             if (appLocale) {
                 const currentLang = appLocale.split("=")[1];
-                languageButton.innerHTML = `<img src="{{ url('assets/flags/') }}/${currentLang}.png" alt="Language Flag"> ${currentLang.toUpperCase()}`;
+                languageButton.innerHTML =
+                    `<img src="{{ url('assets/flags/') }}/${currentLang}.png" alt="Language Flag"> ${currentLang.toUpperCase()}`;
             }
         });
 
