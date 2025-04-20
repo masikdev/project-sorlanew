@@ -83,6 +83,8 @@
 
 
 
+
+
             <div class="left-navbar">
                 <div class="navbar-logo">
                     <a href="/">
@@ -92,12 +94,12 @@
                 <div class="main-navbar">
                     <ul>
                         <li><a href="/">All</a></li>
-                        <li><a href="#">Hospitality</a></li>
-                        <li><a href="#">Residential</a></li>
-                        <li><a href="#">Interior Design</a></li>
-                        <li><a href="#">Cultural</a></li>
-                        <li><a href="#">Commercial</a></li>
-                        <li><a href="#">Recreational</a></li>
+                        <li><a href="{{route('project.hospitality')}}">Hospitality</a></li>
+                        <li><a href="{{route('project.residential')}}">Residential</a></li>
+                        <li><a href="{{route('project.commercial')}}">Commercial</a></li>
+                        <li><a href="{{route('project.interior')}}">Interior Design</a></li>
+                        <li><a href="{{route('project.cultural')}}">Cultural</a></li>
+                        <li><a href="{{route('project.recreational')}}">Recreational</a></li>
                     </ul>
                 </div>
             </div>
@@ -109,19 +111,14 @@
                     </button>
                     <ul class="language-options">
                         <li><a href="#" data-lang="en" onclick="changeLanguage('en')">
-                                <img src="{{ url('assets/flags/en.png') }}" alt=""> English</a></li>
+                                <img src="{{ url('assets/flags/en.png') }}" alt=""> EN</a></li>
                         <li><a href="#" data-lang="it" onclick="changeLanguage('it')">
-                                <img src="{{ url('assets/flags/it.png') }}" alt=""> Italian</a></li>
+                                <img src="{{ url('assets/flags/it.png') }}" alt=""> IT</a></li>
                         <li><a href="#" data-lang="id" onclick="changeLanguage('id')">
-                                <img src="{{ url('assets/flags/id.png') }}" alt=""> Indonesian</a></li>
+                                <img src="{{ url('assets/flags/id.png') }}" alt=""> ID</a></li>
                     </ul>
                 </div>
 
-                <!-- <select name="language" id="language" onchange="location = this.value;">
-                    <option value="{{ route('change.language', 'en') }}" {{ session('app_locale') == 'en' ? 'selected' : '' }}> <img src="{{ url('assets/flags/UK.png') }}" alt=""> EN</option>
-                    <option value="{{ route('change.language', 'it') }}" {{ session('app_locale') == 'it' ? 'selected' : '' }}> <img src="{{ url('assets/flags/Italy.png') }}" alt=""> IT</option>
-                    <option value="{{ route('change.language', 'id') }}" {{ session('app_locale') == 'id' ? 'selected' : '' }}> <img src="{{ url('assets/flags/Indonesian.png') }}" alt=""> ID</option>
-                </select> -->
             </div>
 
         </nav>
@@ -149,10 +146,10 @@
                         <td>{{ $project->{'status_' . session('app_locale')} }}</td>
                     </tr>
                     @if ($project->collaborator)
-                        <tr>
-                            <td>{{ __('messages.collaborator') }} :</td>
-                            <td>{{ $project->collaborator }}</td>
-                        </tr>
+                    <tr>
+                        <td>{{ __('messages.collaborator') }} :</td>
+                        <td>{{ $project->collaborator }}</td>
+                    </tr>
                     @endif
                     </tr>
                     <tr>
@@ -176,21 +173,21 @@
                     @foreach ($gambar['image_desc'] as $image)
                         <li class="project-img" data-aos="fade-up" data-aos-delay="600">
                             <a href="{{ asset('storage/' . $image) }}" target="_blank">
-                                <img src="{{ asset('storage/' . $image) }}" alt="">
-                                <div class="image-info">
-                                    <h4>{{ $gambar['image_name'] }}</h4>
-                                </div>
-                            </a>
-                        </li>
-                    @endforeach
-                @endforeach
-            </ul>
+        <img src="{{ asset('storage/' . $image) }}" alt="">
+        <div class="image-info">
+            <h4>{{ $gambar['image_name'] }}</h4>
+        </div>
+        </a>
+        </li>
+        @endforeach
+        @endforeach
+        </ul>
         </section> --}}
 
         <!-- Tambahkan Modal -->
         <!-- Modal -->
         <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -211,17 +208,17 @@
         <section class="project-gallery">
             <ul class="project-images">
                 @foreach ($gambarProject as $gambar)
-                    @foreach ($gambar['image_desc'] as $image)
-                        <li class="project-img" data-aos="fade-up" data-aos-delay="600">
-                            <a href="#" class="open-modal" data-image="{{ asset('storage/' . $image) }}"
-                                data-name="{{ $gambar['image_name'] }}">
-                                <img src="{{ asset('storage/' . $image) }}" alt="">
-                                <div class="image-info">
-                                    <h4>{{ $gambar['image_name'] }}</h4>
-                                </div>
-                            </a>
-                        </li>
-                    @endforeach
+                @foreach ($gambar['image_desc'] as $image)
+                <li class="project-img" data-aos="fade-up" data-aos-delay="600">
+                    <a href="#" class="open-modal" data-image="{{ asset('storage/' . $image) }}"
+                        data-name="{{ $gambar['image_name'] }}">
+                        <img src="{{ asset('storage/' . $image) }}" alt="">
+                        <div class="image-info">
+                            <h4>{{ $gambar['image_name'] }}</h4>
+                        </div>
+                    </a>
+                </li>
+                @endforeach
                 @endforeach
             </ul>
         </section>
@@ -234,45 +231,45 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const modal = new bootstrap.Modal(document.getElementById("imageModal"));
             const modalImage = document.getElementById("modalImage");
             const modalTitle = document.getElementById("imageModalLabel");
             const prevButton = document.getElementById("prevImage");
             const nextButton = document.getElementById("nextImage");
-    
+
             let images = [];
             let currentIndex = 0;
-    
+
             document.querySelectorAll(".open-modal").forEach((item, index) => {
-                item.addEventListener("click", function (e) {
+                item.addEventListener("click", function(e) {
                     e.preventDefault();
-                    
+
                     images = Array.from(document.querySelectorAll(".open-modal")).map(link => ({
                         src: link.getAttribute("data-image"),
                         name: link.getAttribute("data-name")
                     }));
-    
+
                     currentIndex = index;
                     updateModalContent();
-    
+
                     modal.show();
                 });
             });
-    
+
             function updateModalContent() {
                 modalImage.src = images[currentIndex].src;
                 modalTitle.textContent = images[currentIndex].name;
             }
-    
-            prevButton.addEventListener("click", function () {
+
+            prevButton.addEventListener("click", function() {
                 if (currentIndex > 0) {
                     currentIndex--;
                     updateModalContent();
                 }
             });
-    
-            nextButton.addEventListener("click", function () {
+
+            nextButton.addEventListener("click", function() {
                 if (currentIndex < images.length - 1) {
                     currentIndex++;
                     updateModalContent();
