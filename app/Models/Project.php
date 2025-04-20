@@ -35,6 +35,7 @@ class Project extends Model
         'designer',
         'client',
         'gambar'
+
     ];
 
     public $timestamps = false;

@@ -7,11 +7,15 @@
     <link rel="icon" href="{{ url('assets/logo/sorla_logo_black.png') }}" type="image/x-icon">
     <title>Sorla Architecture</title>
 
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
 
     <!-- ANIMATED ON SCROLL -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+
+
     <style>
         .language-selector {
             position: relative;
@@ -69,16 +73,14 @@
             display: block;
         }
     </style>
+
+
 </head>
 
 <body>
 
     <header>
         <nav class="navbar">
-
-
-
-
 
             <div class="left-navbar">
                 <div class="navbar-logo">
@@ -88,16 +90,17 @@
                 </div>
                 <div class="main-navbar">
                     <ul>
-                        <li><a href="/">All</a></li>
-                        <li><a href="{{route('project.hospitality')}}">Hospitality</a></li>
-                        <li><a href="{{route('project.residential')}}">Residential</a></li>
-                        <li><a href="{{route('project.commercial')}}">Commercial</a></li>
-                        <li><a href="{{route('project.interior')}}">Interior Design</a></li>
-                        <li><a href="{{route('project.cultural')}}">Cultural</a></li>
-                        <li><a href="{{route('project.recreational')}}">Recreational</a></li>
+                        <li><a href="/" class="{{ Request::is('/') ? 'active' : '' }}">All</a></li>
+                        <li><a href="{{ route('project.hospitality') }}" class="{{ Route::is('project.hospitality') ? 'active' : '' }}">Hospitality</a></li>
+                        <li><a href="{{ route('project.residential') }}" class="{{ Route::is('project.residential') ? 'active' : '' }}">Residential</a></li>
+                        <li><a href="{{ route('project.commercial') }}" class="{{ Route::is('project.commercial') ? 'active' : '' }}">Commercial</a></li>
+                        <li><a href="{{ route('project.interior') }}" class="{{ Route::is('project.interior') ? 'active' : '' }}">Interior Design</a></li>
+                        <li><a href="{{ route('project.cultural') }}" class="{{ Route::is('project.cultural') ? 'active' : '' }}">Cultural</a></li>
+                        <li><a href="{{ route('project.recreational') }}" class="{{ Route::is('project.recreational') ? 'active' : '' }}">Recreational</a></li>
                     </ul>
                 </div>
             </div>
+
             <div class="right-navbar">
                 <div class="language-selector">
                     <button id="selected-language">
@@ -113,9 +116,7 @@
                                 <img src="{{ url('assets/flags/id.png') }}" alt=""> ID</a></li>
                     </ul>
                 </div>
-
             </div>
-
         </nav>
     </header>
 
@@ -126,8 +127,8 @@
                 <a href="{{ route('project.show', $item->id_project) }}">
                     <img src="{{ asset('storage/' . $item->gambar) }}" alt="project images">
                     <div class="card-info">
-                        <h4>{{ $item->project_name_en }}</h4>
-                        <h6>{{ $item->category_en }}</h6>
+                        <h4>{{ $item->project_name }}</h4>
+                        <h6>{{ $item->category }}</h6>
                     </div>
                 </a>
             </li>
