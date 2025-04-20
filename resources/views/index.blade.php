@@ -133,23 +133,6 @@
             </li>
             @endforeach
         </ul>
-        {{-- <ul class="images">
-            <li class="card-img"><img src="{{url('images-sample/1.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/2.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/3.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/4.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/5.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/6.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/7.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/8.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/9.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/10.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/11.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/12.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/13.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/14.jpg')}}" alt=""></li>
-        <li class="card-img"><img src="{{url('images-sample/15.jpg')}}" alt=""></li>
-        </ul> --}}
     </main>
 
     {{-- AOS --}}

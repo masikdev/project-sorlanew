@@ -158,10 +158,6 @@ section.projects-gallery .images {
     max-width: 70%;
 }
 
-/* section.projects-gallery .images li {
-    width: 14%;
-} */
-
 section.projects-gallery .images img {
     width: 100%;
     object-fit: contain;
@@ -193,7 +189,7 @@ section.projects-gallery .images img {
     align-items: center;
     text-align: center;
     flex-direction: column;
-    border-radius: 0 0 10px 10px;
+    /* border-radius: 10px 10px 10px 10px; */
 }
 
 .projects-gallery .images .card-img:hover .card-info {
@@ -223,12 +219,6 @@ section.projects-gallery .images img {
     overflow: hidden;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
-
-/* .projects-gallery .images .card-img:hover {
-    transform: scale(1.02);
-    transition: transform 0.4s ease-in-out;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-} */
 
 /* Menyesuaikan ukuran gambar */
 .projects-gallery .images .card-img img {
