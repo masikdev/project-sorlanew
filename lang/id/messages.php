@@ -6,7 +6,7 @@ return [
     'location' => 'Lokasi',
     'size' => 'Ukuran',
     'status' => 'Status',
-    'project date' => 'Tanggal Proyek',
+    'project date' => 'Tahun',
     'description' => 'Deskripsi Proyek',
     'collaborator' => 'Kolaborator',
 ];

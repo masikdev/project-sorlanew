@@ -7,7 +7,7 @@ return [
     'location' => 'Posizione',
     'size' => 'Misurare',
     'status' => 'Stato',
-    'project date' => 'Data del progetto',
+    'project date' => 'Anno',
     'description' => 'Descrizione del progetto',
     'collaborator' => 'Collaboratore',
 ];

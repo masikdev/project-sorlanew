@@ -73,35 +73,19 @@ header nav .left-navbar .navbar-logo a img {
     color: black;
 }
 
+.right-navbar {
+    display: flex;
+    align-items: center;
+    .menu-toggle {
+        opacity: 0;
+    }
+}
+
 .main-navbar ul li a.active {
     font-weight: bold;
     /* color: #d09d43; Ganti warna sesuai branding */
     border-bottom: 2px solid #2a2a2a; /* Tambahan opsional */
 }
-
-/* header nav.navbar .left-navbar {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-header nav.navbar .right-navbar {
-    display: flex;
-}
-
-
-header nav ul {
-    display: flex;
-    list-style: none;
-    gap: 1.3rem;
-}
-*
-header nav ul li a {
-    display: flex;
-    list-style: none;
-    gap: 1rem;
-    color: black;
-} */
 
 /* Lang Nav Select Option */
 
@@ -124,24 +108,25 @@ header nav ul li a {
     gap: 0.6rem;
 }
 
+/* Halaman Detail */
+
+.project {
+    max-width: 93%;
+    display: flex;
+    gap: 0rem;
+    margin: auto;
+}
+
 /* Punya Detail */
+
 section.projects-gallery .images {
     columns: 5 14%;
     max-width: 70%;
 }
 
-section.projects-gallery .images img {
-    width: 100%;
-    object-fit: contain;
-}
-
 .projects-gallery .images .card-img {
     list-style: none;
     margin-bottom: 0.3rem;
-}
-
-.projects-gallery .images img {
-    width: 100%;
 }
 
 .projects-gallery .images .card-img .card-info {
@@ -199,52 +184,33 @@ section.projects-gallery .images img {
     display: block;
 }
 
-/* Halaman Detail */
-
-.project {
-    max-width: 93%;
-    display: flex;
-    gap: 1.2rem;
-    margin: auto;
-}
-
 /* Title and Desc */
 
 section.project-detail {
-    width: 30%;
+    width: 35%;
     /* height: 100px; */
-    /* background-color: red; */
 }
 
 .title {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     margin-bottom: 0.8rem;
 }
 
 .description {
     margin-top: 1rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 
 .description p {
     margin-top: 0.3rem;
     line-height: 1.3rem;
+    text-align: justify;
 }
-
-/* section.project-detail table{
-    width: 80%;
-} */
-
-/* table,
-tr,
-td {
-    border: 1px solid;
-} */
 
 table tr td:nth-child(1) {
     width: 10rem;
     vertical-align: baseline;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
 }
 
 table tr td:nth-child(2) {
@@ -254,7 +220,7 @@ table tr td:nth-child(2) {
     align-items: center; */
     vertical-align: bottom;
 
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     /* color: red; */
 }
 
@@ -273,9 +239,10 @@ section.project-detail table td {
     margin-top: 0.8rem;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    column-gap: 0.2rem;
-    row-gap: 0.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    column-gap: 0.3rem;
+    row-gap: 0.3rem;
+    overflow: hidden;
 }
 
 li.project-img {
@@ -283,8 +250,9 @@ li.project-img {
 }
 
 li.project-img img {
-    width: 16rem;
-    height: 10rem;
+    width: 100%;
+    height: auto; /* atau tetap 13rem jika mau fix ratio */
+    aspect-ratio: 21 / 13; /* untuk menjaga proporsi tanpa harus height tetap */
     object-fit: cover;
     cursor: pointer;
 }
@@ -297,8 +265,9 @@ li.project-img .image-info {
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
     position: absolute;
-    height: 10rem;
-    width: 16rem;
+    width: 100%;
+    height: auto; /* atau tetap 13rem jika mau fix ratio */
+    aspect-ratio: 21 / 13; /* untuk menjaga proporsi tanpa harus height tetap */
     background: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 15px;
@@ -315,9 +284,98 @@ li.project-img:hover .image-info {
 }
 
 li.project-img .image-info h4 {
-    font-size: 22px;
-    line-height: 1px;
-    font-weight: 700;
+    font-size: 1.2rem;
     margin-bottom: 22px;
     padding-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+    section.project-detail {
+        width: 70%;
+    }
+
+    section.projects-gallery .images {
+        columns: 10 14%;
+        max-width: 30%;
+    }
+
+    .project-images {
+        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .main-navbar {
+        display: none;
+        position: absolute;
+        top: 100%; /* Menempel tepat di bawah navbar */
+        left: 0;
+        right: 0;
+        background-color: white;
+        z-index: 99;
+        padding: 1rem 2rem;
+        /* border-top: 1px solid #ccc; */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-navbar.active {
+        display: block;
+    }
+
+    .main-navbar ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .right-navbar {
+        display: flex;
+        align-items: center;
+        .menu-toggle {
+            opacity: 1;
+        }
+    }
+
+    .menu-toggle {
+        display: block;
+        font-size: 20px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin-left: 1rem;
+        margin-right: 0.5rem;
+    }
+
+    .left-navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 468px) {
+    main.project {
+        display: flex;
+        flex-direction: column;
+    }
+    section.project-detail {
+        width: 100%;
+    }
+
+    section.projects-gallery .images {
+        columns: 10 14%;
+        max-width: 100%;
+    }
+
+    li.project-img img {
+        width: 100%;
+        height: auto; /* atau tetap 13rem jika mau fix ratio */
+        aspect-ratio: 21 / 13; /* untuk menjaga proporsi tanpa harus height tetap */
+        object-fit: cover;
+        cursor: pointer;
+    }
+
+    li.project-img .image-info {
+        width: 100%;
+        height: auto; /* atau tetap 13rem jika mau fix ratio */
+        aspect-ratio: 21 / 13; /* untuk menjaga proporsi tanpa harus height tetap */
+    }
 }

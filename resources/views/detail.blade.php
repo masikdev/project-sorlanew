@@ -9,7 +9,8 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
-
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
     <!-- ANIMATED ON SCROLL -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -79,14 +80,16 @@
 
     <header>
         <nav class="navbar">
-
             <div class="left-navbar">
                 <div class="navbar-logo">
                     <a href="/">
                         <img src="{{ url('assets/logo/sorla_logo_black.png') }}" alt="">
                     </a>
                 </div>
-                <div class="main-navbar">
+
+
+
+                <div class="main-navbar" id="main-navbar">
                     <ul>
                         <li><a href="/" class="{{ Request::is('/') ? 'active' : '' }}">All</a></li>
                         <li><a href="{{ route('project.hospitality') }}" class="{{ Route::is('project.hospitality') ? 'active' : '' }}">Hospitality</a></li>
@@ -98,24 +101,27 @@
                     </ul>
                 </div>
             </div>
+            <!-- HAMBURGER BUTTON -->
 
-            <div class="right-navbar">
-                <div class="language-selector">
-                    <button id="selected-language">
-                        <img src="assets/flags/en.png" alt="EN Flag">
-                        EN
-                    </button>
-                    <ul class="language-options">
-                        <li><a href="#" data-lang="en" onclick="changeLanguage('en')">
-                                <img src="{{ url('assets/flags/en.png') }}" alt=""> EN</a></li>
-                        <li><a href="#" data-lang="it" onclick="changeLanguage('it')">
-                                <img src="{{ url('assets/flags/it.png') }}" alt=""> IT</a></li>
-                        <li><a href="#" data-lang="id" onclick="changeLanguage('id')">
-                                <img src="{{ url('assets/flags/id.png') }}" alt=""> ID</a></li>
-                    </ul>
-                </div>
-            </div>
         </nav>
+        <div class="right-navbar">
+            <div class="language-selector">
+                <button id="selected-language">
+                    <img src="assets/flags/en.png" alt="EN Flag">
+                    EN
+                </button>
+                <ul class="language-options">
+                    <li><a href="#" data-lang="en" onclick="changeLanguage('en')">
+                            <img src="{{ url('assets/flags/en.png') }}" alt=""> EN</a></li>
+                    <li><a href="#" data-lang="it" onclick="changeLanguage('it')">
+                            <img src="{{ url('assets/flags/it.png') }}" alt=""> IT</a></li>
+                    <li><a href="#" data-lang="id" onclick="changeLanguage('id')">
+                            <img src="{{ url('assets/flags/id.png') }}" alt=""> ID</a></li>
+                </ul>
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+        </div>
+
     </header>
 
     <main class="project">
@@ -148,7 +154,7 @@
                     </tr>
                     <tr>
                         <td>{{ __('messages.project date') }} :</td>
-                        <td>{{ \Carbon\Carbon::parse($project->year)->format('d F Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($project->year)->format('Y') }}</td>
                     </tr>
                 </table>
 
@@ -168,9 +174,11 @@
                         <li class="project-img" data-aos="fade-up" data-aos-delay="600">
                             <a href="{{ asset('storage/' . $image) }}" target="_blank">
         <img src="{{ asset('storage/' . $image) }}" alt="">
+
         <div class="image-info">
             <h4>{{ $gambar['image_name'] }}</h4>
         </div>
+
         </a>
         </li>
         @endforeach
@@ -181,11 +189,12 @@
         <!-- Tambahkan Modal -->
         <!-- Modal -->
         <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <!-- modal-xl -->
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <!-- <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                    </div> -->
                     <div class="modal-body text-center position-relative">
                         <button class="btn btn-dark position-absolute start-0 top-50 translate-middle-y" id="prevImage"
                             style="z-index: 10;">&#10094;</button>
@@ -324,7 +333,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('main-navbar');
+            menu.classList.toggle('active');
+        }
+    </script>
 </body>
 
 </html>

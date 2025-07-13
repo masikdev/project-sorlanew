@@ -6,7 +6,7 @@ return [
     'location' => 'Location',
     'size' => 'Size',
     'status' => 'Status',
-    'project date' => 'Project Date',
+    'project date' => 'Year',
     'description' => 'Project Description',
     'collaborator' => 'Collaborator',
 ];

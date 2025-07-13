@@ -14,6 +14,9 @@
     <!-- ANIMATED ON SCROLL -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
 
 
     <style>
@@ -81,65 +84,64 @@
 
     <header>
         <nav class="navbar">
-
             <div class="left-navbar">
                 <div class="navbar-logo">
                     <a href="/">
                         <img src="{{ url('assets/logo/sorla_logo_black.png') }}" alt="">
                     </a>
                 </div>
-                <div class="main-navbar">
+
+
+
+                <div class="main-navbar" id="main-navbar">
                     <ul>
                         <li><a href="/" class="{{ Request::is('/') ? 'active' : '' }}">All</a></li>
-                        <li><a href="{{ route('project.hospitality') }}"
-                                class="{{ Route::is('project.hospitality') ? 'active' : '' }}">Hospitality</a></li>
-                        <li><a href="{{ route('project.residential') }}"
-                                class="{{ Route::is('project.residential') ? 'active' : '' }}">Residential</a></li>
-                        <li><a href="{{ route('project.commercial') }}"
-                                class="{{ Route::is('project.commercial') ? 'active' : '' }}">Commercial</a></li>
-                        <li><a href="{{ route('project.interior') }}"
-                                class="{{ Route::is('project.interior') ? 'active' : '' }}">Interior Design</a></li>
-                        <li><a href="{{ route('project.cultural') }}"
-                                class="{{ Route::is('project.cultural') ? 'active' : '' }}">Cultural</a></li>
-                        <li><a href="{{ route('project.recreational') }}"
-                                class="{{ Route::is('project.recreational') ? 'active' : '' }}">Recreational</a></li>
+                        <li><a href="{{ route('project.hospitality') }}" class="{{ Route::is('project.hospitality') ? 'active' : '' }}">Hospitality</a></li>
+                        <li><a href="{{ route('project.residential') }}" class="{{ Route::is('project.residential') ? 'active' : '' }}">Residential</a></li>
+                        <li><a href="{{ route('project.commercial') }}" class="{{ Route::is('project.commercial') ? 'active' : '' }}">Commercial</a></li>
+                        <li><a href="{{ route('project.interior') }}" class="{{ Route::is('project.interior') ? 'active' : '' }}">Interior Design</a></li>
+                        <li><a href="{{ route('project.cultural') }}" class="{{ Route::is('project.cultural') ? 'active' : '' }}">Cultural</a></li>
+                        <li><a href="{{ route('project.recreational') }}" class="{{ Route::is('project.recreational') ? 'active' : '' }}">Recreational</a></li>
                     </ul>
                 </div>
             </div>
+            <!-- HAMBURGER BUTTON -->
 
-            <div class="right-navbar">
-                <div class="language-selector">
-                    <button id="selected-language">
-                        <img src="assets/flags/en.png" alt="EN Flag">
-                        EN
-                    </button>
-                    <ul class="language-options">
-                        <li><a href="#" data-lang="en" onclick="changeLanguage('en')">
-                                <img src="{{ url('assets/flags/en.png') }}" alt=""> EN</a></li>
-                        <li><a href="#" data-lang="it" onclick="changeLanguage('it')">
-                                <img src="{{ url('assets/flags/it.png') }}" alt=""> IT</a></li>
-                        <li><a href="#" data-lang="id" onclick="changeLanguage('id')">
-                                <img src="{{ url('assets/flags/id.png') }}" alt=""> ID</a></li>
-                    </ul>
-                </div>
-            </div>
         </nav>
+        <div class="right-navbar">
+            <div class="language-selector">
+                <button id="selected-language">
+                    <img src="assets/flags/en.png" alt="EN Flag">
+                    EN
+                </button>
+                <ul class="language-options">
+                    <li><a href="#" data-lang="en" onclick="changeLanguage('en')">
+                            <img src="{{ url('assets/flags/en.png') }}" alt=""> EN</a></li>
+                    <li><a href="#" data-lang="it" onclick="changeLanguage('it')">
+                            <img src="{{ url('assets/flags/it.png') }}" alt=""> IT</a></li>
+                    <li><a href="#" data-lang="id" onclick="changeLanguage('id')">
+                            <img src="{{ url('assets/flags/id.png') }}" alt=""> ID</a></li>
+                </ul>
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+        </div>
+
     </header>
 
     <main class="projects-gallery">
         <ul class="images">
             @foreach ($projects as $item)
-                <li class="card-img" data-aos="fade-up" data-aos-delay="600">
-                    <a href="{{ route('project.show', $item->id_project) }}">
-                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="project images">
-                        <div class="card-info">
-                            {{-- <h4>{{ $item->project_name_en }}</h4> --}}
-                            <h4>{{ $item->{'project_name_' . session('app_locale')} }}</h4>
-                            <h6>{{ $item->{'category_' . session('app_locale')} }}</h6>
-                            {{-- <h6>{{ $item->category_en }}</h6> --}}
-                        </div>
-                    </a>
-                </li>
+            <li class="card-img" data-aos="fade-up" data-aos-delay="600">
+                <a href="{{ route('project.show', $item->id_project) }}">
+                    <img src="{{ asset('storage/' . $item->gambar) }}" alt="project images">
+                    <div class="card-info">
+                        {{-- <h4>{{ $item->project_name_en }}</h4> --}}
+                        <h4>{{ $item->{'project_name_' . session('app_locale')} }}</h4>
+                        <h6>{{ $item->{'category_' . session('app_locale')} }}</h6>
+                        {{-- <h6>{{ $item->category_en }}</h6> --}}
+                    </div>
+                </a>
+            </li>
             @endforeach
         </ul>
     </main>
@@ -189,6 +191,12 @@
                     location.reload();
                 }
             }).catch(error => console.error("Error changing language:", error));
+        }
+    </script>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('main-navbar');
+            menu.classList.toggle('active');
         }
     </script>
 </body>
